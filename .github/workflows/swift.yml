@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: 'Build and Simulate Device'
+    name: 'Build and Simulate iOS Device'
     runs-on: macos-latest
     timeout-minutes: 30
 
@@ -69,4 +69,42 @@ jobs:
       with:
         results: TestResults.xcresult
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+  
+  deploy:
+    name: 'Deploy to Testflight'
+    needs: build
+    runs-on: macos-latest
+    
+    steps:
+    - uses: trstringer/manual-approval@v1
+      with:
+        secret: ${{ github.TOKEN }}
+        approvers: W18012455
+        minimum-approvals: 1
+    - name: Running
+      run: echo Deploying
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Certificates
+      uses: apple-actions/import-codesign-certs@v1
+      with:
+        p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+        p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+    - uses: Apple-Actions/download-provisioning-profiles@v1
+      with:
+        bundle-id: codes.orj.Example-iOS
+        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+        api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+        api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+    - name: "#️⃣ Generate Build Number"
+      id: buildnumber
+      uses: einaregilsson/build-number@v2
+      with:
+        token: ${{ secrets.github_token }}
+    - run: ./Build
+    - uses: Apple-Actions/upload-testflight-build@master
+      with:
+        app-path: .build/Artifacts/Example-iOS.ipa/Example-iOS.ipa
+        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+        api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+        api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
