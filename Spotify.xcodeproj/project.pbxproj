@@ -58,6 +58,7 @@
 		0B0A5C89280385D30045D48E /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		0B0A5C8B280385E00045D48E /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		0B0A5C8D280396B10045D48E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0B0A5C8F2805D5C30045D48E /* Spotify.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Spotify.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +75,7 @@
 		0B0A5C42280380310045D48E = {
 			isa = PBXGroup;
 			children = (
+				0B0A5C8F2805D5C30045D48E /* Spotify.xctestplan */,
 				0B0A5C4D280380310045D48E /* Spotify */,
 				0B0A5C4C280380310045D48E /* Products */,
 			);

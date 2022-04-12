@@ -1,0 +1,23 @@
+{
+  "configurations" : [
+    {
+      "id" : "CF0090DD-B340-4BB8-8B05-7EFB76B5F884",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Spotify.xcodeproj",
+      "identifier" : "0B0A5C4A280380310045D48E",
+      "name" : "Spotify"
+    }
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}
