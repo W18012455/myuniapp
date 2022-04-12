@@ -72,7 +72,7 @@ jobs:
   
   deploy:
     name: 'Deploy to Testflight'
-    needs: build
+    needs: tests
     runs-on: macos-latest
     
     steps:
