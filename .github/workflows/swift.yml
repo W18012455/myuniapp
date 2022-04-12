@@ -2,7 +2,7 @@ name: Build, Test and Deploy iOS App
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
