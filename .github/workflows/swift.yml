@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test default scheme using any available iPhone simulator
+    name: 'Build and Test'
     runs-on: macos-latest
 
     steps:
@@ -52,7 +52,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
         fetch-depth: 0
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
@@ -64,7 +63,7 @@ jobs:
     name: 'Code Coverage Tests'
     container:
       image: swift:5.3
-    needs: build
+    needs: tests
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -77,3 +76,29 @@ jobs:
         MINIMUM_COVERAGE: 98
         INCLUDE_TESTS: 'true'  
         
+  deploy:
+    name: 'Build and Deploy'
+    needs: codecov 
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        
+    steps:
+    - name: 'Build iOS App'
+    - uses: sparkfabrik/ios-build-action@v1.2.0
+      with:
+        project-path: App.xcodeproj
+        p12-key-base64: ${{ secrets.P12_KEY_BASE64 }}
+        p12-cer-base64: ${{ secrets.P12_CER_BASE64 }}
+        mobileprovision-base64: ${{ secrets.MOBILEPROVISION_BASE64 }}
+        code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
+        team-id: ${{ secrets.TEAM_ID }}
+        workspace-path: App.xcworkspace # optional
+    - name: 'Upload app to TestFlight'
+    - uses: apple-actions/upload-testflight-build@v1
+      with: 
+        app-path: 'path/to/application.ipa' 
+        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+        api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+        api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
