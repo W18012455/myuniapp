@@ -1,6 +1,10 @@
 
 # Music Mood App
 
+[![Build, Test and Deploy iOS App](https://github.com/W18012455/myuniapp/actions/workflows/swift.yml/badge.svg?branch=main)](https://github.com/W18012455/myuniapp/actions/workflows/swift.yml)
+
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=W18012455_myuniapp)](https://sonarcloud.io/summary/new_code?id=W18012455_myuniapp)
+
 ## Intro
 
 This is the source code for the iOS app that plays music to your mood through the Spotify API. App coded in xcode and vs code then pushed into git 
